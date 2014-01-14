@@ -120,7 +120,7 @@ def download_submissions(dir_name, subm):
     members = subm.get('Group members')
     if members is not None:
         for m in members:
-            (first_name, last_name) = email_to_names.get(m)
+            (first_name, last_name) = email_to_names.get(m, ('', ''))
             f.write("    Group member: %r : %r %r\n" % (m, first_name, last_name))
     f.close()
     # Downloads the submission itself.
