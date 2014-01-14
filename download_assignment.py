@@ -145,10 +145,12 @@ def download_reviews(subm_dir_name, subm):
         f.write("Grade: %r\n" % r.get('Review grade'))
         f.write("Helpfulness: %r\n\n" % r.get('Review helpfulness'))
         f.write("Review:\n\n")
-        f.write("%r\n\n" % r.get('Reviewer comments'))
+        f.write(tostring(r.get('Reviewer comments')))
+        f.write("\n\n")
         if r.get('Review feedback') is not None:
             f.write("\nFeedback:\n\n")
-            f.write("%r\n\n" % r.get('Review feedback'))
+            f.write("%s" % tostring(r.get('Review feedback')))
+            f.write("\n\n")
         f.write("==============================\n\n")
     f.close()
     
@@ -157,7 +159,7 @@ def download_text(dir_name, url, name='submission.txt'):
     w, _ = my_url_open(url)
     sub = json.loads(w)
     f = open(os.path.join(dir_name, name), 'w')
-    f.write('%r' % sub.get('Submission'))
+    f.write('%s' % tostring(sub.get('Submission')))
     f.close()
 
 
@@ -193,6 +195,10 @@ def my_url_open(url, n_retries=3):
     print "Failed"
     return '', []
 
+
+def tostring(s):
+    t = s.encode('utf-8', 'ignore')
+    return t.replace('\r\n', os.linesep)
 
 if __name__ == '__main__':
     main()
