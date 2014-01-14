@@ -112,6 +112,11 @@ def download_submissions(dir_name, subm):
     subm_link = subm.get('Submitted link')
     if subm_link is not None:
         f.write("Submitted link: %r\n" % subm_link)
+    else:
+        f.write("No submitted link.\n")
+    upload_url = subm.get('Uploaded file')
+    if upload_url is None:
+        f.write("No uploaded file.\n")
     members = subm.get('Group members')
     if members is not None:
         for m in members:
@@ -122,7 +127,6 @@ def download_submissions(dir_name, subm):
     text_url = subm.get('Submission')
     download_text(subm_dir_name, text_url, name='submission.txt')
     # Downloads any uploaded file.
-    upload_url = subm.get('Uploaded file')
     download_file(subm_dir_name, upload_url, name='attachment.txt')
     # Downloads any reviews.
     download_reviews(subm_dir_name, subm)
@@ -158,6 +162,8 @@ def download_text(dir_name, url, name='submission.txt'):
 
 
 def download_file(dir_name, url, name='attachment.txt'):
+    if url is None:
+        return
     w, h = my_url_open(url)
     filename = get_original_filename(h, name=name)
     print "Downloading:", filename
