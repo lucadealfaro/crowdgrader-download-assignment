@@ -176,8 +176,8 @@ def download_file(dir_name, url, name='attachment.txt'):
 
 def get_original_filename(h, name="attachment.txt"):
     for el in h:
-        if el.startswith('Content-Disposition:'):
-            filename = re.findall("filename=(\S+)", el)            
+        if el.lower().startswith('content-disposition:'):
+            filename = re.findall("filename=(\S+)", el)
             if filename is not None and len(filename) > 0:
                 return filename[0][1:-1]
     return name
