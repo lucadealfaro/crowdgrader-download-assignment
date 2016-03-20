@@ -169,7 +169,7 @@ def download_file(dir_name, url, name='attachment.txt'):
     w, h = my_url_open(url)
     filename = get_original_filename(h, name=name)
     print "Downloading:", filename
-    f = open(os.path.join(dir_name, filename), 'w')
+    f = open(os.path.join(dir_name, filename), 'wb')
     f.write(w)
     f.close()
     
