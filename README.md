@@ -2,7 +2,7 @@
 
 > Code to download data from CrowdGrader assignments written in Python 2.
 
-Please feel free to contribute to this code. See http://doc.crowdgrader.org for more information on CrowdGrader.
+Please feel free to contribute to this code. See for more information on [CrowdGrader](http://doc.crowdgrader.org).
 
 
 ## Usage
