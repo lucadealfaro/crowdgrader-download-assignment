@@ -50,14 +50,22 @@ def main():
         usage()
         sys.exit(2)
 
-    json_file_name = sys.argv[1]
     dest_dir = sys.argv[2]
     if check_directory_exists(dest_dir):
         print "Error: Destination directory already exists."
         sys.exit(1)
 
-    assignment_data = read_json_file(json_file_name)
-    write_assignment_data(dest_dir, assignment_data)
+    input_source = sys.argv[1] # to be tested for directory containing lots of json-files or one single json-file
+    if os.path.isdir(input_source):
+        json_file_names = [os.path.join(input_source, file_name) for file_name in os.listdir(input_source) if file_name.endswith('.json')]
+    else:
+        json_file_names = [input_source]
+
+    for i, json_file_name in enumerate(json_file_names):
+        print "Start downloading assignment %i of %i" % (i+1, len(json_file_names))
+        assignment_data = read_json_file(json_file_name)
+        assignment_name = assignment_data["Assignment"]
+        write_assignment_data(os.path.join(dest_dir, assignment_name), assignment_data)
 
     print "All assignment data downloaded."
 
